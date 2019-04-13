@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //构造函数
+    function Foo(name,age){
+        this.name = name
+    }
+    //每个函数都有一个prototype（显式原型）属性
+    Foo.prototype.alertName = function(){
+        // alert(this.name) 
+    }
+    //创建实例
+    var f = new Foo('tnsihy')
+    f.printName = function(){
+        console.log(this.name)
+    }
+
+    //测试
+    f.printName() //tnsihy
+    f.alertName() //tnsihy
+    console.log(f.toString()) 
+    //输出[object Object]
+    // 要去f._proto_._proto_(即Object.prototype)中查找
+    //f._proto_是Foo.prototype
+
+    //想要循环对象自身的属性 仅仅是name跟printName 不包括alertName
+    var item;
+    for(item in f){
+        //高级浏览器已经在for in中屏蔽了来自原型的属性
+        //但是这里建议大家还是加上这个判断，保证程序的健壮性
+        if(f.hasOwnProperty(item)){
+            console.log(item)
+        }
+    }
+    </script>
+</body>
+</html>
