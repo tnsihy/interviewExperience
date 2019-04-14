@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 获取2017-06-20格式的日期   -->
+  <div id="demo"></div>
+  <script>
+    function formatDate(dt){
+      if(!dt){
+        dt = new Date()
+      }
+      var year = dt.getFullYear()
+      var month = dt.getMonth() + 1
+      var date = dt.getDate()
+      if(month < 10){
+        // 强制类型转换
+        month = '0' + month
+      }
+      if(date < 10){
+        // 强制类型转换
+        date = '0' + date
+      }
+      return year + '-' + month + '-' + date
+    }
+    var dt = new Date()
+    var formatDate = formatDate(dt)
+    console.log(formatDate)
+  </script>
+</body>
+
+</html>
