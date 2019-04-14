@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用let不会出现这种问题</title>
+</head>
+
+<body>
+    <!-- 事件的绑定是异步操作 -->
+    <script>
+        for (let i = 0; i < 10; i++) {
+            var a = document.createElement('a')
+            a.innerHTML = i + '<br />'
+            a.addEventListener('click',function(){
+                    alert(i)
+            })
+            document.body.appendChild(a)
+        }
+    </script>
+</body>
+
+</html>

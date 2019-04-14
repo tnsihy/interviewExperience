@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="zhuo">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        //1.通过index
+        var zhuo = document.getElementById('zhuo')
+        var li = zhuo.getElementsByTagName('li')
+
+        for (var i = 0, len = li.length; i < len; ++i) {
+
+            li[i].index = i // 因为这个li是一个dom对象，所以我们可以在它上面添加属性
+            li[i].onclick = function () {
+                var index = this.index // 这里的this指向li[i]，因此我们可以从上面取到之前的index属性值
+                console.log(index)
+            }
+
+        }
+
+    //    --------------------------------------------------------
+        //2.委托事件原理
+        var ul = document.getElementById('zhuo')
+
+        ul.onclick = function (event) {
+            event = event || window.event
+            target = event.target // 获得点击的最底层DOM
+
+            if (target.nodeName === 'LI') { // 判断这个DOM节点名字是不是li，
+                console.log(target.innerHTML) //这里不是弹出序号，是内容。
+            }
+        }
+    </script>
+</body>
+
+</html>

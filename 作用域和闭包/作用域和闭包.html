@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>创建10个\<a>标签，点击的时候弹出来对应的序号</title>
+</head>
+
+<body>
+    <script>
+        var i;
+        for (i = 0; i < 10; i++) {(
+            function(i){ //函数拥有自己的作用域
+                // 闭包函数IIFE，立即执行函数
+                // 接收下面i的值保存在上面的i中，这个i会一直保存在这个函数作用域
+                var a = document.createElement('a')
+                a.innerHTML = i + '<br />'
+                a.addEventListener('click',function(){
+                    alert(i)
+                })
+                document.body.appendChild(a)
+            }(i) //函数的入口传入i
+        )}
+    </script>
+</body>
+
+</html>
