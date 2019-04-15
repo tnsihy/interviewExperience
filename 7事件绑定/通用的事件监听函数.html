@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="div1">
+        <a href="http://imooc.com" id="imooc1">imooc1</a>
+        <a href="http://imooc.com" id="imooc2">imooc2</a>
+        <a href="http://imooc.com" id="imooc3">imooc3</a>
+        <a href="http://imooc.com" id="imooc4">imooc4</a>
+        <p id="p1">我是p1</p>
+        <p id="p2">我是p2</p>
+    </div>
+    <script>
+        function bindEvent(elem, type, selector, fn) {
+            if (fn == null) {
+                fn = selector
+                selector = null
+            }
+            elem.addEventListener(type, function (e) {
+                e.preventDefault()
+                var target
+                console.log(selector)  //代理的话传过来的都是a 故selector存在
+                if (selector) {
+                    target = e.target
+                    console.log(target)
+                    if (target.matches(selector)) { //matches() 方法用于检测字符串是否匹配给定的正则表达式
+                        console.log("target中有selector")
+                        //这里写fn(target)  bindEvent函数中写console.log(e.innerHTML)也是可以的
+                        fn.call(target, e)
+                        // call是改变this的绑定 this.innerHTML === target.innerHTML
+                    }
+                } else {
+                    fn(e)
+                }
+            })
+        }
+        //div1中的<a>标签使用代理
+        var div1 = document.getElementById('div1')
+        bindEvent(div1, 'click', 'a', function (e) {
+            //var target = e.target
+            console.log(this.innerHTML)
+        })
+
+        //不使用代理 每个标签都要添加一个bindEvent
+        // var a = document.getElementById('imooc1')
+        // bindEvent(a, 'click', function (e) {
+        //     console.log(a.innerHTML)
+        // })
+    </script>
+</body>
+
+</html>
