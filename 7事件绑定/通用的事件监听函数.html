@@ -30,7 +30,7 @@
                 if (selector) {
                     target = e.target
                     console.log(target)
-                    if (target.matches(selector)) { //matches() 方法用于检测字符串是否匹配给定的正则表达式
+                    if (target.matches(selector)) { //target.matches返回的值为true/false  selector为个css选择器字符串
                         console.log("target中有selector")
                         //这里写fn(target)  bindEvent函数中写console.log(e.innerHTML)也是可以的
                         fn.call(target, e)

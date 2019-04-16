@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="checkCookie()">按钮</button>
+    <script>
+        // 设置cookie值的函数
+        function setCookie(cname, cvalue, exdays) { //exdays单位为天数
+            var d = new Date()
+            //console.log(d.getTime()) 1970/1/1到现在的毫秒数 
+            d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000)
+            var expires = "expires" + d.toGMTString()
+            //cookie名称为cname cookie值为cvalue cookie过期时间expires
+            document.cookie = cname + '=' + cvalue + ';' + expires;
+            // console.log(document.cookie) 输出为myName = tnsihy
+        }
+
+        // 获取cookie值的函数
+        function getCookie(cname) {
+            var name = cname + "="
+            //将多个cookie值拆分
+            var ca = document.cookie.split(';')
+            for (var i = 0; i < ca.length; i++){
+                 //读取数组中每个值，并去除前后空格
+                var c = ca[i].trim();
+                //indexOf() 方法可返回某个指定的字符串值在字符串中首次出现的位置
+                if(c.indexOf(name) === 0){
+                    //console.log(c.substring(name.length,c.length)) 返回tnsihy
+                    //substring()方法用于提取字符串中介于两个指定下标之间的字符
+                    return c.substring(name.length,c.length) 
+                }
+                return ""
+            }
+        }
+
+        //检测cookie值的函数
+        function checkCookie(){
+            var username = getCookie('myName')
+            console.log(typeof username) //string类型
+            if(username !== ""){
+                alert('Welcome again ' + username)
+            }else{
+                username = prompt("Please input your name:","")
+                if(username !== "" && username !== null){
+                    setCookie("myName","tnsihy",365)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="div1">
+        <a href="http://imooc.com" id="imooc1">imooc1</a>
+        <a href="http://imooc.com" id="imooc2">imooc2</a>
+        <a href="http://imooc.com" id="imooc3">imooc3</a>
+        <a href="http://imooc.com" id="imooc4">imooc4</a>
+        <p id="p1">我是p1</p>
+        <p id="p2">我是p2</p>
+    </div>
+    <script>
+        function bindEvent(elem, type, selector, fn) {
+            //如果fn为undefined 
+            if (!fn ) {
+                //那么selecotor就是传的函数function (e) { console.log(this.innerHTML) }了，将selector赋值给fn
+                fn = selector
+                selector = undefined;//将selector赋值为undefined;
+            }
+            //给elem节点增加事件的监听，type参数为事件的类型，例如:'click'
+            elem.addEventListener(type, function (e) {
+                //阻止事件的默认行为，对于a标签而言，默认行为就是跳转链接。
+                e.preventDefault();
+                var target;
+                //如果有传递selector参数
+                if (selector) {
+                    //那么将事件对象的target，也就是点击命中的节点。
+                    target = e.target
+                    //<a>节点使用matches 方法匹配 selector也就是'a'
+                    if (target.matches(selector)) {
+                        console.log(target,selector,target.matches(selector))
+                        // console.log("target中有selector")
+                        //调用function (e) { console.log(this.innerHTML) }，call方法的第一个为this的绑定，也就是target  a节点，后面是函数的参数
+                        fn.call(target, e)
+                        //等同于function (e) { console.log(target.innerHTML) } 
+                    }
+                } else {
+                    fn(e)
+                }
+            })
+        }
+        //div1中的<a>标签使用代理
+        var div1 = document.getElementById('div1')
+        //bindEvent(elem, type, selector, fn) elem 是div节点，type是'click',selector是'a',fn是function (e) { console.log(this.innerHTML) }
+        bindEvent(div1, 'click', 'a', function (e) {
+            console.log(this.innerHTML)
+        })
+
+        //不使用代理 每个<a>标签都要添加一个bindEvent
+        var a = document.getElementById('imooc1')
+        //bindEvent(elem, type, selector, fn) elem 是div节点，type是'click',selector是function (e) { console.log(this.innerHTML) } ,fn是undefined       
+        bindEvent(a, 'click', function (e) {
+            e.preventDefault()
+            console.log(a.innerHTML)
+        })
+    </script>
+</body>
+
+</html>
