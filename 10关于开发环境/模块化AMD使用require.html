@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>AMD test</h1>
+    <!-- 当要使用require.js库时候会使用data-main 类似c语言的main函数，表示众多的js文件中主要入口文件 -->
+    <script src="/require.min.js" data-main="./main.js"></script>
+    <script>
+        // 模块必须采用特定的define()函数来定义
+    //util.js
+    define(function(){ 
+        // 如果一个模块不依赖其他模块，那么可以直接定义在define()函数之中
+        return {
+            getFormatDate:function(dt,type){
+                if(type === 1){
+                    return '2019/04/16'
+                }
+                if(type === 2){
+                    return '2019年4月14日'
+                }
+            }
+        }
+    })
+    //a-util.js
+    define(['./util.js'],function(util){
+        //  如果这个模块还依赖其他模块，那么define()函数的第一个参数，必须是一个数组，指明该模块的依赖性。
+        return {
+            aGetFormatDate:function(dt){
+                console.log(util.getFormatDate(dt,2))
+            }
+        }
+    })
+    //a.js
+    define(['./a-util.js'],function(aUtil){
+        return {
+            printDate:function(dt){
+                console.log(aUtil.aGetFormatDate(dt))
+            }
+        }
+    });
+    //main.js
+    require(['./a.js'],function(a){
+        var dt = new Date()
+        a.printDate(dt)
+    })
+    </script>
+</body>
+</html>
