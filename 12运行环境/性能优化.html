@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 懒加载 -->
+    <!-- data-realsrc是真正的图片地址，当资源进入视口时，将src属性替换成data-realsrc的值 -->
+    <img id="img1" src="preview.png" data-realsrc="abc.png">
+    <script type="text/javascript">
+        var img1 = document.getElementById('img1')
+        img1.src = img.getAttribute('data-realsrc')
+    </script>
+</body>
+</html>
