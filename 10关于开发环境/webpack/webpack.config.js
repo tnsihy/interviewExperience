@@ -17,5 +17,9 @@ module.exports = {
     output:{
         path:path.resolve(__dirname,'./dist'),
         filename:'bundle.js'
-    }
+    },
+    //引入js压缩插件，直接写
+    plugins:[
+        new webpack.optimize.UglifyJsPlugin()
+    ]
 }
